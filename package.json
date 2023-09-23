@@ -1,6 +1,6 @@
 {
   "name": "match-predicate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "javascript implementation of match statement",
   "main": "dist/index.js",
   "scripts": {
