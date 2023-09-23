@@ -1,0 +1,37 @@
+{
+  "name": "match-predicate",
+  "version": "1.0.0",
+  "description": "javascript implementation of match statement",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "tsc",
+    "test": "tsc && mocha dist/tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntanasGa/match-predicate.git"
+  },
+  "keywords": [
+    "match",
+    "util",
+    "utility",
+    "switch"
+  ],
+  "author": "AntanasGa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AntanasGa/match-predicate/issues"
+  },
+  "homepage": "https://github.com/AntanasGa/match-predicate#readme",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.8",
+    "typescript": "^5.2.2",
+    "@types/mocha": "^10.0.1",
+    "@types/chai": "^4.3.6",
+    "@typescript-eslint/parser": "^6.7.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.2"
+  }
+}
