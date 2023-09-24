@@ -9,10 +9,11 @@ enum TestValues {
 describe('EdgeCases', () => {
   it('Works with enums', () => {
     const expectedResult = !!0;
-    const match = matchPredicate([
-      [TestValues.Success.toString(), () => expectedResult],
+    const match = matchPredicate<TestValues, boolean, true>([
+      [TestValues.Success, () => expectedResult],
+      [(i) => TestValues.Failure === i, () => !expectedResult],
     ]);
 
-    assert.equal(match(TestValues.Success.toString()), expectedResult);
+    assert.equal(match(TestValues.Success), expectedResult);
   });
 });

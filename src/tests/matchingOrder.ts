@@ -4,9 +4,9 @@ import matchPredicate from "..";
 describe('Item matching', () => {
   it('Proritize computed over consumable', () => {
     const expectedResult = !!0;
-    const match = matchPredicate([
+    const match = matchPredicate<number, boolean>([
       [
-        (i: number) => i > 0,
+        (i) => i > 0,
         () => !expectedResult,
       ],
       [1, () => expectedResult],
@@ -17,13 +17,13 @@ describe('Item matching', () => {
 
   it('Never reaches overlaping code blocks', () => {
     const expectedResult = !!0;
-    const match = matchPredicate([
+    const match = matchPredicate<number, boolean>([
       [
-        (i: number) => i > 0,
+        (i) => i > 0,
         () => expectedResult,
       ],
       [
-        (i: number) => i > 1,
+        (i) => i > 1,
         () => !expectedResult,
       ],
     ]);
