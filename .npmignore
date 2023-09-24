@@ -1,2 +1,4 @@
 src/tests
 dist/tests
+.eslintrc.cjs
+tsconfig.json
