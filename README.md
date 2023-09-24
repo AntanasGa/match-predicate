@@ -15,6 +15,7 @@ const result = matchPredicate([
   [1, () => "Hello"],
   [2, () => "World"],
 ])(1);
+
 ```
 
 Match statement is reusable:
@@ -28,23 +29,49 @@ const match = matchPredicate([
 ]);
 
 console.log([match(2), match(1)].join(", "))
+
 ```
 
 Match using a function:
 
 ```ts
-const result = matchPredicate([
-  [(i: number) => i > 0, () => "It's getting more interesting"],
+import matchPredicate from "match-predicate";
+
+const result = matchPredicate<number, string>([
+  [(i) => i > 0, () => "It's getting more interesting"],
 ])(1);
+
 ```
 
 Default values:
 
 ```ts
-const match = matchPredicate([
-  [(i: number) => i > 0, () => "It's getting more interesting"],
+import matchPredicate from "match-predicate";
+
+const match = matchPredicate<number, string>([
+  [(i) => i > 0, () => "It's getting more interesting"],
 ])
 const result = match(-1, "Oh no, nothing matched");
 
 const result = match(-2, () => "It works with functions too");
+
+```
+
+Force an explicid definition with the 3'rd value:
+```ts
+import matchPredicate from "match-predicate";
+
+enum EnumForExplicive {
+  One,
+  Two,
+  Three,
+}
+
+console.log(
+  matchPredicate<EnumForExplicive, boolean, true>([
+    [EnumForExplicive.One, () => "Typescript"],
+    [(i) => [EnumForExplicive.Two, EnumForExplicive.Three].includes(i), () => "Safe"],
+  ])(EnumForExplicive.Three)
+);
+
 ```
