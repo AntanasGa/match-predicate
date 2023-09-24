@@ -1,16 +1,18 @@
 
-type Selectors<Input, T> = [string | string[] | number | number[] | ((arg: Input) => boolean), () => T][];
+type ReducedType<T> = T extends number ? number : T extends string ? string : never;
+type ValidationType<T, E extends boolean> = E extends true ? T : ReducedType<T>;
+type AcceptedValidators<T extends string | number, Explicit extends boolean> = T | T[] | ((arg: ValidationType<T, Explicit>) => boolean)
 
-export default function matchPredicate<Result, Input extends string | number>(selectorList: Selectors<Input, Result>) {
+export default function matchPredicate<Input extends string | number, Result, Explicit extends boolean = false>(selectorList: [AcceptedValidators<Input, Explicit>, () => Result][]) {
   if (!Array.isArray(selectorList)) {
     throw new Error('Expected selector to be an array, got: ' + typeof selectorList);
   }
 
-  type SelectorType = (typeof selectorList)[number];
-  type Resolver = SelectorType[1];
-
+  type Validator = ValidationType<Input, Explicit>;
+  type Resolver = (typeof selectorList)[number][1];
+  
   const computed: Record<string | number, Resolver> = {};
-  const consumable: [((arg: Input) => boolean), Resolver][] = [];
+  const consumable: [((arg: Validator) => boolean), Resolver][] = [];
 
   for (const index in selectorList) {
     const [validator, resolver] = selectorList[index];
@@ -41,7 +43,7 @@ export default function matchPredicate<Result, Input extends string | number>(se
 
     consumable.push([validator, resolver]);
   }
-  return function (input: Input, defaultResolver?: ReturnType<Resolver> | Resolver) {
+  return function (input: Validator, defaultResolver?: ReturnType<Resolver> | Resolver) {
     let actionResolver: Resolver | undefined;
     if (typeof input !== 'function') {
       actionResolver = computed[input];

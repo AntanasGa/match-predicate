@@ -5,9 +5,9 @@ export default () => {
   describe('Consumable matching (function matching)', () => {
     it('Matches by function provided', () => {
       const expectedResult = !!0;
-      const match = matchPredicate([
+      const match = matchPredicate<number, boolean>([
         [
-          (i: number) => i > 0,
+          (i) => i > 0,
           () => expectedResult, 
         ],
       ]);
